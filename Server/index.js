@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
-    origin: "https://swiftsync.vercel.app",
+    origin: "//swiftsync.vercel.app",
   },
 });
 const users = {};
