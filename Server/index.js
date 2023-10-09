@@ -3,10 +3,19 @@ import { Server as SocketServer } from "socket.io";
 import http from "http";
 
 const app = express();
+const port = process.env.PORT || 3000;
 const server = http.createServer(app);
-const io = new SocketServer(server);
+const io = new SocketServer(server, {
+  cors: {
+    origin: "https://swiftsync.vercel.app",
+  },
+});
 const users = {};
 const sockets = {};
+
+app.get("/", (req, res) => {
+  res.send("Congratulations! What have you unlocked?");
+});
 
 io.on("connection", (socket) => {
   //Usuario conectado
@@ -148,4 +157,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3000, () => console.log("Server Started"));
+server.listen(port);

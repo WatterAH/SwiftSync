@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./server/index.js"
+    "start": "node ./server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.10",
     "nodemon": "^3.0.1"
   }
 }
