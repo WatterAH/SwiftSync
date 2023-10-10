@@ -33,7 +33,7 @@ export const MessageList = ({ messages, setMessages }) => {
                 <span className="text-red-600"> desconectado</span>
               </p>
             </div>
-          ) : (
+          ) : message.from ? (
             <li
               key={i}
               className={`p-3 my-5 mx-2.5 table text-black rounded-md ${
@@ -51,7 +51,7 @@ export const MessageList = ({ messages, setMessages }) => {
               </span>{" "}
               {message.body}
             </li>
-          )
+          ) : null
         )}
 
         <div ref={messageListRef}></div>

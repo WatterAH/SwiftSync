@@ -21,7 +21,6 @@ export function App() {
       return;
     }
     socket.emit("message", message.trim());
-    socket.emit("stoppedTyping");
     setMessage("");
   };
 
