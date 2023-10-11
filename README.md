@@ -1,7 +1,7 @@
 # SwiftSync
 Real Time App - React.js, Node.js, Socket.io
-# Running Server (Node.js)
+# Running BackEnd
     npm start
-# Running Server (React.js)
+# Running FrontEnd
     cd frontend
     npm run dev
