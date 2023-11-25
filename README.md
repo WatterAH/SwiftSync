@@ -1,7 +1,14 @@
 # SwiftSync
 Real-time Chat Application - React.js, Node.js, Socket.io
-# Running BackEnd
+# Install Packages
+## Backend Packages
+    npm install
+## Frontend Packages
+    cd frontend
+    npm install
+# Running app
+## Running Backend
     npm start
-# Running FrontEnd
+## Running Frontend
     cd frontend
     npm run dev
