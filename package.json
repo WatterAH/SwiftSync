@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node backend/index.js",
-    "dev": "nodemon backend/index.js"
+    "dev": "nodemon --watch backend backend/index.js"
   },
   "keywords": [],
   "author": "Watter!",
