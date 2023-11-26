@@ -10,7 +10,7 @@ import {
   faHeadphones,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const socket = io("http://localhost:3000", {
+export const socket = io("//swiftsync.fly.dev", {
   transports: ["websocket"],
 });
 
