@@ -20,11 +20,11 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://swiftsync.vercel.app",
   },
 });
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://swiftsync.vercel.app",
   credentials: true,
 };
 const users = {};

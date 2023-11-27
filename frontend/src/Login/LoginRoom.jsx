@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import loadingGif from "../assets/loading.gif";
 
-export const socket = io("http://localhost:3000", {
+export const socket = io("//swiftsync.fly.dev", {
   transports: ["websocket"],
 });
 
@@ -34,7 +34,7 @@ export function LoginRoom() {
       password: password.trim(),
     };
     try {
-      const res = await fetch("http://localhost:3000/api/auth", {
+      const res = await fetch("//swiftsync.fly.dev/api/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export function LoginRoom() {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch("//swiftsync.fly.dev/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

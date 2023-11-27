@@ -17,7 +17,7 @@ export function App() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/validateToken", {
+        const res = await fetch("//swiftsync.fly.dev/api/validateToken", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
