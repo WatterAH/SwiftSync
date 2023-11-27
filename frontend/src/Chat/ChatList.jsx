@@ -35,7 +35,7 @@ export const ChatList = ({ visible }) => {
 
   //Solicitar Chat
   const handleRequestChat = (user) => {
-    socket.emit("requestChat", user);
+    // socket.emit("requestChat", user);
   };
 
   //Recibir solicitud de Chat
@@ -81,6 +81,25 @@ export const ChatList = ({ visible }) => {
     };
   }, []);
 
+  const logout = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      console.log(res);
+
+      if (res.status == 200) {
+        nav("/");
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   return (
     <div
       className={`h-screen ${
@@ -125,7 +144,15 @@ export const ChatList = ({ visible }) => {
         </div>
       )}
 
-      <h1 className="text-4xl text-white mb-6">Online </h1>
+      <div className="flex items-center justify-between mb-7">
+        <div className="flex">
+          <h1 className="text-4xl text-white">{socket.username}</h1>
+          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+        </div>
+        <button className="" onClick={logout}>
+          Logout
+        </button>
+      </div>
       <ul className="flex-1 overflow-y-auto">
         {users.length === 1 ? (
           <p className="text-white">Seems that we're alone...</p>

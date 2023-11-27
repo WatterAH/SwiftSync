@@ -14,6 +14,38 @@ export function App() {
   const [notify, setNotify] = useState(false);
   const nav = useNavigate();
 
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/validateToken", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (res.status === 403) {
+          nav("/");
+        } else {
+          const token = await res.json();
+          const misdatos = {
+            name: token.username,
+            selectedIcon: token.icon,
+          };
+          socket.username = token.username;
+          socket.icon = token.icon;
+          socket.emit("userConnected", misdatos);
+        }
+      } catch (error) {
+        console.error("Error al verificar la autenticación:", error);
+      }
+    };
+
+    checkAuthentication();
+    return () => socket.off("userConnected");
+  }, []);
+
   //Enviar mensaje
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,18 +55,6 @@ export function App() {
     socket.emit("message", message.trim());
     setMessage("");
   };
-
-  useEffect(() => {
-    socket.emit("tryingCon", socket.username);
-    return () => {};
-  }, [socket.username]);
-
-  useEffect(() => {
-    socket.on("tryingCon", () => {
-      nav("/");
-    });
-    return () => socket.off("tryingCon");
-  });
 
   //Establecer notificacion
   useEffect(() => {
@@ -65,9 +85,7 @@ export function App() {
     };
     socket.on("nameConnected", handleMessage);
 
-    return () => {
-      socket.off("nameConnected", handleMessage);
-    };
+    return () => socket.off("nameConnected", handleMessage);
   });
 
   //Notificacion del chat (usuario desconectado)
