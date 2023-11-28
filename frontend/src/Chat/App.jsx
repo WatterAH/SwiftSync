@@ -91,9 +91,6 @@ export function App() {
         } absolute h-screen`}
       >
         <div className="flex text-center gap-3">
-          <h1 className="text-2xl md:text-4xl lg:ml-0">
-            SwiftSync Global Chat
-          </h1>
           <div className="w-12 h-12 lg:hidden ml-auto">
             <div
               className={`w-4 h-4 right-2 top-2 absolute ${

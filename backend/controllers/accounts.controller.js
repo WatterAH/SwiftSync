@@ -4,7 +4,9 @@ import bcryptjs from "bcryptjs";
 
 export const register = async (req, res) => {
   const { username, password, selectedIcon } = req.body;
-  console.log(password);
+  if (!username || !password || !selectedIcon) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
   const passHaash = await bcryptjs.hash(password, 8);
   try {
     const { data, error } = await supabase
@@ -18,18 +20,14 @@ export const register = async (req, res) => {
       ])
       .select();
     if (error) {
-      return res
-        .status(500)
-        .json({ error: "Error interno al registrar usuario" });
+      return res.status(403).json({ message: "Username already exists." });
     } else {
-      return res
-        .status(200)
-        .json({ data, message: "Usuario registrado con exito" });
+      return res.status(200).json({ data, message: "User registered." });
     }
   } catch (err) {
     return res
       .status(500)
-      .json({ error: "Error interno al procesar la solicitud" });
+      .json({ message: "The server has encountered a problem." });
   }
 };
 
@@ -41,10 +39,10 @@ export const auth = async (req, res) => {
     .eq("username", username)
     .single();
   if (error) {
-    return res.status(403).json({ message: "User not found" });
+    return res.status(403).json({ message: "Verify your credentials" });
   } else {
     if (!(await bcryptjs.compare(password, data.password))) {
-      return res.status(403).json({ message: "La contraseña no es correcta" });
+      return res.status(403).json({ message: "Verify your credentials." });
     } else {
       const usuario = { id: data.id, username: data.username, icon: data.icon };
       const token = await createAccessToken(usuario);

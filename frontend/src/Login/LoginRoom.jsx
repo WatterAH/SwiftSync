@@ -10,10 +10,11 @@ import {
   faHeadphones,
 } from "@fortawesome/free-solid-svg-icons";
 import loadingGif from "../assets/loading.gif";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export const socket = io("//swiftsync.fly.dev", {
-  transports: ["websocket"],
-});
+export let socket;
+export const URL = "//swiftsync.fly.dev";
 
 export function LoginRoom() {
   const [userName, setUsername] = useState("");
@@ -28,13 +29,13 @@ export function LoginRoom() {
 
   const auth = async (e) => {
     e.preventDefault();
-    setLoading(!loading);
+    setLoading(true);
     const data = {
       username: userName.trim(),
       password: password.trim(),
     };
     try {
-      const res = await fetch("//swiftsync.fly.dev/api/auth", {
+      const res = await fetch(`${URL}/api/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,26 +43,34 @@ export function LoginRoom() {
         credentials: "include",
         body: JSON.stringify(data),
       });
-      if (res.status == 403) {
-        console.log("Verifica tus credenciales");
+      const response = await res.json();
+      if (res.status != 200) {
+        toast.error(response.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       } else if (res.status == 200) {
-        const usuario = await res.json();
+        socket = io(URL, {
+          transports: ["websocket"],
+        });
         const miydata = {
-          name: usuario.username,
-          selectedIcon: usuario.icon,
+          name: response.username,
+          selectedIcon: response.icon,
         };
+        socket.username = response.username;
+        socket.icon = response.icon;
         socket.emit("userConnected", miydata);
         nav("/ss");
       }
     } catch (error) {
       throw new Error(error);
     } finally {
-      setLoading(!loading);
+      setLoading(false);
     }
   };
 
   const reg = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = {
       username: newName.trim(),
       password: newPassword.trim(),
@@ -69,21 +78,30 @@ export function LoginRoom() {
     };
 
     try {
-      const res = await fetch("//swiftsync.fly.dev/api/register", {
+      const res = await fetch(`${URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      if (!res.ok) {
-        console.log(err);
+      const message = await res.json();
+      if (res.status != 200) {
+        toast.error(message.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       } else {
+        toast.success(message.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
         setOcult(!ocult);
       }
     } catch (err) {
-      throw new Error("Error interno al registrar al usuario");
+      toast.error(message.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
     } finally {
+      setLoading(false);
     }
   };
 
@@ -94,7 +112,7 @@ export function LoginRoom() {
   return (
     <div className="flex flex-1 min-h-full flex-col justify-center px-6 py-12 h-screen bg-zinc-800">
       <div className="flex items-center justify-center sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="text-3xl font-bold text-white">
+        <h1 className="text-3xl font-bold text-white transition-opacity">
           {ocult ? "Sign up for SwiftSync" : "Login to SwiftSync"}
         </h1>
       </div>
@@ -232,6 +250,7 @@ export function LoginRoom() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }

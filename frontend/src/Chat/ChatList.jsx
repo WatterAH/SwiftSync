@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { socket } from "../Login/LoginRoom.jsx";
+import { URL, socket } from "../Login/LoginRoom.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeadphones,
@@ -83,15 +83,14 @@ export const ChatList = ({ visible }) => {
 
   const logout = async () => {
     try {
-      const res = await fetch("//swiftsync.fly.dev/api/logout", {
+      const res = await fetch(`${URL}/api/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
       });
-      console.log(res);
-
+      socket.disconnect();
       if (res.status == 200) {
         nav("/");
       }
@@ -146,12 +145,9 @@ export const ChatList = ({ visible }) => {
 
       <div className="flex items-center justify-between mb-7">
         <div className="flex">
-          <h1 className="text-4xl text-white">{socket.username}</h1>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <h1 className="text-4xl text-white">Global</h1>
+          <button onClick={logout}>Logout</button>
         </div>
-        <button className="" onClick={logout}>
-          Logout
-        </button>
       </div>
       <ul className="flex-1 overflow-y-auto">
         {users.length === 1 ? (
