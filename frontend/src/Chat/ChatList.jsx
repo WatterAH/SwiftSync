@@ -146,8 +146,8 @@ export const ChatList = ({ visible }) => {
       <div className="flex items-center justify-between mb-7">
         <div className="flex">
           <h1 className="text-4xl text-white">Global</h1>
-          <button onClick={logout}>Logout</button>
         </div>
+        <button onClick={logout}>Logout</button>
       </div>
       <ul className="flex-1 overflow-y-auto">
         {users.length === 1 ? (
