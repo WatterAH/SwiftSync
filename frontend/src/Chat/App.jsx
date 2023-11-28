@@ -1,7 +1,7 @@
 import { socket } from "../Login/LoginRoom.jsx";
 import { useState, useEffect } from "react";
 import { MessageList } from "./MessageList.jsx";
-import { ChatList } from "./ChatList.jsx";
+import { Actions } from "./Actions.jsx";
 import { Message } from "./Message.jsx";
 import { useNavigate } from "react-router-dom";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
@@ -83,7 +83,7 @@ export function App() {
 
   return (
     <div className="h-screen relative flex bg-zinc-800 text-white">
-      <ChatList visible={visible} />
+      <Actions visible={visible} />
       <form
         onSubmit={handleSubmit}
         className={`bg-zinc-900 rounded-md top-0 right-0 px-4 py-4 flex flex-col justify-between w-screen lg:w-2/3 ${

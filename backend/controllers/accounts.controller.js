@@ -58,6 +58,9 @@ export const auth = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token");
+  res.cookie("token", "", {
+    maxAge: new Date(),
+    sameSite: "None",
+  });
   return res.status(200).json({ message: "OK" });
 };

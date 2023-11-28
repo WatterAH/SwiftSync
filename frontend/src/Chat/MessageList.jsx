@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useEffect } from "react";
-import { getFa } from "./ChatList";
+import { getFa } from "../../components/GlobalList.jsx";
 import { socket } from "../Login/LoginRoom.jsx";
 
 export const MessageList = ({ messages, setMessages }) => {
@@ -22,15 +22,15 @@ export const MessageList = ({ messages, setMessages }) => {
           message.from === "notifyCon" ? (
             <div className="flex items-center justify-center" key={i}>
               <p>
-                {message.body} se ha
-                <span className="text-emerald-500"> conectado</span>
+                {message.body} has
+                <span className="text-emerald-500"> connected</span>
               </p>
             </div>
           ) : message.from === "notifyDisc" ? (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center" key={i}>
               <p>
-                {message.body} se ha
-                <span className="text-red-600"> desconectado</span>
+                {message.body} has
+                <span className="text-red-600"> disconnected</span>
               </p>
             </div>
           ) : message.from ? (
