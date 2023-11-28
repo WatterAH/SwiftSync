@@ -23,17 +23,17 @@ const io = new SocketServer(server, {
     origin: "https://swiftsync.vercel.app",
   },
 });
-const corsOptions = {
-  origin: "https://swiftsync.vercel.app",
-  credentials: true,
-};
 const users = {};
 const sockets = {};
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://swiftsync.vercel.app",
+    credentials: true,
+  })
+);
 app.use(cookie());
 app.use(bodyParser.json());
-app.use(express.json());
 app.use(accountRouter);
 
 io.on("connection", (socket) => {

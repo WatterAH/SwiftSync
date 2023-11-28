@@ -45,6 +45,12 @@ export function LoginRoom() {
       if (res.status == 403) {
         console.log("Verifica tus credenciales");
       } else if (res.status == 200) {
+        const usuario = await res.json();
+        const miydata = {
+          name: usuario.username,
+          selectedIcon: usuario.icon,
+        };
+        socket.emit("userConnected", miydata);
         nav("/ss");
       }
     } catch (error) {
@@ -56,7 +62,6 @@ export function LoginRoom() {
 
   const reg = async (e) => {
     e.preventDefault();
-    setLoading(!loading);
     const data = {
       username: newName.trim(),
       password: newPassword.trim(),
@@ -79,7 +84,6 @@ export function LoginRoom() {
     } catch (err) {
       throw new Error("Error interno al registrar al usuario");
     } finally {
-      setLoading(!loading);
     }
   };
 

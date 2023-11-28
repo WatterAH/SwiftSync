@@ -14,38 +14,6 @@ export function App() {
   const [notify, setNotify] = useState(false);
   const nav = useNavigate();
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const res = await fetch("//swiftsync.fly.dev/api/validateToken", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
-
-        if (res.status === 403) {
-          nav("/");
-        } else {
-          const token = await res.json();
-          const misdatos = {
-            name: token.username,
-            selectedIcon: token.icon,
-          };
-          socket.username = token.username;
-          socket.icon = token.icon;
-          socket.emit("userConnected", misdatos);
-        }
-      } catch (error) {
-        console.error("Error al verificar la autenticación:", error);
-      }
-    };
-
-    checkAuthentication();
-    return () => socket.off("userConnected");
-  }, []);
-
   //Enviar mensaje
   const handleSubmit = (e) => {
     e.preventDefault();
