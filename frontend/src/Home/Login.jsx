@@ -42,10 +42,11 @@ export function Login({ setCurrentForm }) {
           name: response.username,
           selectedIcon: response.icon,
         };
+        socket.id_user = response.id;
         socket.username = response.username;
         socket.icon = response.icon;
         socket.emit("userConnected", miydata);
-        nav("/ss");
+        nav("/app");
       }
     } catch (error) {
       throw new Error(error);

@@ -4,9 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getFa } from "./GlobalList";
 
-export const Search = ({ setCurrentTab, setUserIdProfile }) => {
+export const Search = ({ setCurrentTab, setUserId }) => {
   const [username, setUsername] = useState("");
   const [usersFound, setUsersFound] = useState([]);
+  const [displayResults, setDisplayResults] = useState(false);
 
   const searchFor = async (e) => {
     setUsername(e.target.value);
@@ -19,10 +20,13 @@ export const Search = ({ setCurrentTab, setUserIdProfile }) => {
         toast.error(response.message, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
+        setDisplayResults(false);
       } else {
+        setDisplayResults(true);
         setUsersFound(response);
       }
     } catch (error) {
+      setDisplayResults(false);
       toast.error(response.message, {
         position: toast.POSITION.BOTTOM_CENTER,
       });
@@ -38,21 +42,17 @@ export const Search = ({ setCurrentTab, setUserIdProfile }) => {
           placeholder="Search for friends"
           onChange={searchFor}
           value={username}
-          onBlur={() => {
-            setUsersFound([]);
-            setUsername("");
-          }}
         />
-        {usersFound.length > 0 && (
+        {displayResults && usersFound.length > 0 && (
           <div className="bg-zinc-900 rounded-lg mt-4 p-3 absolute">
             <ul className="flex-1 overflow-y-auto">
               {usersFound.map((user) => (
                 <li key={user.id} className="p-3 border-b border-gray-600">
                   <button
                     onClick={() => {
-                      // setUsersFound([]);
-                      // setUserIdProfile(user.id);
-                      // setCurrentTab("profile");
+                      setCurrentTab("profile");
+                      setUserId(user.id);
+                      setDisplayResults(false);
                     }}
                   >
                     <div className="flex items-center">

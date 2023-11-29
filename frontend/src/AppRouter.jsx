@@ -9,7 +9,7 @@ export function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/ss" element={<App />} />
+      <Route path="/app" element={<App />} />
       <Route path="/private/:privateRoom/:username/:id" element={<Private />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
