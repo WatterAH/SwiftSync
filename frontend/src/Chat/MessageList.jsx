@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useEffect } from "react";
-import { getFa } from "../../components/GlobalList.jsx";
-import { socket } from "../Login/LoginRoom.jsx";
+import { getFa } from "../components/GlobalList.jsx";
+import { socket } from "../Home/Login.jsx";
 
 export const MessageList = ({ messages, setMessages }) => {
   const messageListRef = useRef(null);

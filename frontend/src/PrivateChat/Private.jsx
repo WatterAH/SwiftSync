@@ -1,11 +1,10 @@
 import { Message } from "../Chat/Message.jsx";
 import { MessageList } from "../Chat/MessageList.jsx";
 import { useState, useEffect } from "react";
-import { socket } from "../Login/LoginRoom.jsx";
+import { socket } from "../Home/Login.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Tooltip } from "../Chat/Tooltip.jsx";
 
 export function Private() {
   const { privateRoom, username, id } = useParams();

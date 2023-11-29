@@ -1,5 +1,5 @@
 import React from "react";
-import { socket } from "../src/Login/LoginRoom";
+import { socket } from "../Home/Login.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeadphones,
@@ -9,21 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPhoenixSquadron } from "@fortawesome/free-brands-svg-icons";
 
-export const getFa = (iconName) => {
-  switch (iconName) {
-    case 0:
-      return faUser;
-    case 1:
-      return faPhoenixSquadron;
-    case 2:
-      return faHeart;
-    case 3:
-      return faStar;
-    case 4:
-      return faHeadphones;
-    default:
-      break;
-  }
+export const getFa = (icon) => {
+  const icons = [faUser, faPhoenixSquadron, faHeart, faStar, faHeadphones];
+  return icons[icon];
 };
 
 export function GlobalList({ users }) {

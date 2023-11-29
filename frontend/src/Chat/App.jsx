@@ -1,4 +1,4 @@
-import { socket } from "../Login/LoginRoom.jsx";
+import { socket } from "../Home/Login.jsx";
 import { useState, useEffect } from "react";
 import { MessageList } from "./MessageList.jsx";
 import { Actions } from "./Actions.jsx";
@@ -23,15 +23,6 @@ export function App() {
     socket.emit("message", message.trim());
     setMessage("");
   };
-
-  //Establecer notificacion
-  useEffect(() => {
-    socket.on("requestChat", () => {
-      setNotify(true);
-    });
-
-    return () => socket.off("requestChat");
-  }, []);
 
   //Recibir mensaje
   useEffect(() => {

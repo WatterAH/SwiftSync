@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { URL, socket } from "../Login/LoginRoom.jsx";
-import { useNavigate } from "react-router-dom";
-import { GlobalList } from "../../components/GlobalList.jsx";
-import { Menu } from "../../components/Menu.jsx";
+import { socket } from "../Home/Login.jsx";
+import { GlobalList } from "../components/GlobalList.jsx";
+import { Menu } from "../components/Menu.jsx";
+import { Search } from "../components/Search.jsx";
+import { Profile } from "../components/profile.jsx";
 
 export const Actions = ({ visible }) => {
   const [users, setUsers] = useState([]);
   const [currentTab, setCurrentTab] = useState("global");
-  const nav = useNavigate();
+  const [userIdProfile, setUserIdProfile] = useState("");
 
   const renderContent = () => {
     switch (currentTab) {
@@ -17,24 +18,12 @@ export const Actions = ({ visible }) => {
         return <p className="p-4">Coming soon</p>;
       case "notifications":
         return <p className="p-4">Coming soon</p>;
+      case "profile":
+        return <Profile id={userIdProfile}></Profile>;
       default:
         break;
     }
   };
-
-  //Solicitar Chat
-  // const handleRequestChat = (user) => {
-  //   // socket.emit("requestChat", user);
-  // };
-
-  //Recibir solicitud de Chat
-  useEffect(() => {
-    socket.on("requestChat", (data) => {
-      setPendingRequests((prevRequests) => [...prevRequests, data]);
-    });
-
-    return () => socket.off("requestChat");
-  }, []);
 
   //Lista de usuarios conectados
   useEffect(() => {
@@ -44,29 +33,6 @@ export const Actions = ({ visible }) => {
 
     return () => {
       socket.off("userConnected");
-    };
-  }, []);
-
-  //Iniciar chat privado
-  useEffect(() => {
-    socket.on("privateMe", (data) => {
-      const { privateRoom, username, id } = data;
-      nav(`/private/${privateRoom}/${username}/${id}`);
-    });
-
-    return () => {
-      socket.off("privateMe");
-    };
-  });
-
-  useEffect(() => {
-    socket.on("privateThem", (data) => {
-      const { privateRoom, username, id } = data;
-      nav(`/private/${privateRoom}/${username}/${id}`);
-    });
-
-    return () => {
-      socket.off("privateThem");
     };
   }, []);
 
@@ -114,10 +80,11 @@ export const Actions = ({ visible }) => {
         </div>
       )} */}
 
-      <div className="px-4 pt-3">
-        <h1 className="text-4xl text-white">SwiftSync</h1>
-        <span className="border-b border-t py-6 px-8 border-none underline underline-offset-8"></span>
-      </div>
+      <Search
+        setCurrentTab={setCurrentTab}
+        setUserIdProfile={setUserIdProfile}
+      ></Search>
+      {/* <span className="border-b border-t py-6 px-8 border-none underline underline-offset-8"></span> */}
       <Menu currentTab={currentTab} setCurrentTab={setCurrentTab}></Menu>
       {renderContent()}
     </div>
