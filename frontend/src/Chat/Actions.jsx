@@ -3,7 +3,7 @@ import { socket } from "../Home/Login.jsx";
 import { GlobalList } from "../components/GlobalList.jsx";
 import { Menu } from "../components/Menu.jsx";
 import { Search } from "../components/Search.jsx";
-import { Profile } from "../components/profile.jsx";
+import { Profile } from "../components/Profile.jsx";
 
 export const Actions = ({ visible }) => {
   const [users, setUsers] = useState([]);
