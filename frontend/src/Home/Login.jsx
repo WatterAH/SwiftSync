@@ -35,7 +35,7 @@ export function Login({ setCurrentForm }) {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       } else if (res.status == 200) {
-        socket = io("http://localhost:3000", {
+        socket = io(URL, {
           transports: ["websocket"],
         });
         const miydata = {
