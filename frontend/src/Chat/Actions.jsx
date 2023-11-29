@@ -114,7 +114,7 @@ export const Actions = ({ visible }) => {
         </div>
       )} */}
 
-      <div className="px-4">
+      <div className="px-4 pt-3">
         <h1 className="text-4xl text-white">SwiftSync</h1>
         <span className="border-b border-t py-6 px-8 border-none underline underline-offset-8"></span>
       </div>
