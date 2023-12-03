@@ -7,6 +7,7 @@ export const connected = (socket, io, users, sockets) => {
       id: socket.id,
       name: data.name,
       icon: data.selectedIcon,
+      db_id: data.db_id,
     };
     sockets[socket.id] = socket;
 

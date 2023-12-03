@@ -37,7 +37,7 @@ export const Actions = ({ visible }) => {
 
   return (
     <div
-      className={`h-screen ${
+      className={`actions-container h-screen ${
         !visible ? "w-4/5 md:w-3/5 lg:w-1/3" : "lg:w-1/3"
       } bg-zinc-800 flex flex-col z-10 rounded-md`}
     >

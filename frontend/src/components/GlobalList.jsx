@@ -8,6 +8,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPhoenixSquadron } from "@fortawesome/free-brands-svg-icons";
+import { profile } from "./Search.jsx";
 
 export const getFa = (icon) => {
   const icons = [faUser, faPhoenixSquadron, faHeart, faStar, faHeadphones];
@@ -25,6 +26,7 @@ export function GlobalList({ users }) {
             <li
               key={user.id}
               className="flex items-center cursor-pointer px-4 py-3 border-b border-gray-600"
+              onClick={() => profile(user.db_id)}
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 overflow-hidden">

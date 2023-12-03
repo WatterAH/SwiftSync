@@ -41,6 +41,7 @@ export function Login({ setCurrentForm }) {
         const miydata = {
           name: response.username,
           selectedIcon: response.icon,
+          db_id: response.id,
         };
         socket.id_user = response.id;
         socket.username = response.username;

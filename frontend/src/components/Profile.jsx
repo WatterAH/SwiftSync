@@ -41,14 +41,22 @@ export const Profile = ({ id }) => {
     searchProfile();
   }, [id]);
 
-  const addUser = (id) => {
+  const addUser = async (id) => {
+    return;
     try {
       const data = {
-        myName: socket.username,
-        myID: socket.id_user,
-        theirID: id,
+        friendRequesterName: socket.username,
+        friendRequesterId: socket.id_user,
+        friendResponserId: id,
       };
-      socket.emit("addUser", data);
+      const res = await fetch(`${URL}/sendFriendRequest`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      });
     } catch (error) {
       toast.error(error, {
         position: toast.POSITION.BOTTOM_CENTER,

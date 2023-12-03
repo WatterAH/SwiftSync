@@ -45,7 +45,7 @@ export function Register({ setCurrentForm }) {
         toast.success(message.message, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
-        setOcult(!ocult);
+        setCurrentForm("auth");
       }
     } catch (err) {
       toast.error(err, {

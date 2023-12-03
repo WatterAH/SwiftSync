@@ -1,17 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { URL } from "../Home/Home";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getFa } from "./GlobalList";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
+export let profile;
+
 export const Search = ({ setCurrentTab, setUserId }) => {
   const [username, setUsername] = useState("");
   const [usersFound, setUsersFound] = useState([]);
   const [displayResults, setDisplayResults] = useState(false);
 
+  useEffect(() => {
+    const closeResults = (e) => {
+      if (!e.target.closest(".search-container")) {
+        setUsersFound([]);
+        setDisplayResults(false);
+      }
+    };
+
+    document.body.addEventListener("click", closeResults);
+
+    return () => {
+      document.body.removeEventListener("click", closeResults);
+    };
+  }, []);
+
   const searchFor = async (e) => {
+    const input = e.target.value;
     setUsername(e.target.value);
+
+    if (input.trim() === "") {
+      setUsersFound([]);
+      setDisplayResults(false);
+      return;
+    }
+
     try {
       const res = await fetch(
         `${URL}/api/searchFriend?username=${encodeURIComponent(username)}`
@@ -34,7 +59,8 @@ export const Search = ({ setCurrentTab, setUserId }) => {
     }
   };
 
-  const profile = (id) => {
+  profile = (id) => {
+    console.log(id);
     setCurrentTab("profile");
     setUserId(id);
     setDisplayResults(false);
@@ -42,7 +68,7 @@ export const Search = ({ setCurrentTab, setUserId }) => {
   };
 
   return (
-    <div className="flex justify-center px-2 py-4">
+    <div className="search-container flex justify-center px-2 py-4">
       <div className="w-2/3">
         <div className="flex items-center">
           <FontAwesomeIcon

@@ -15,7 +15,7 @@ import { stoppedTyping, typing } from "./sockets/privateEvents.socket.js";
 import { tryingConnection } from "./sockets/errors.socket.js";
 import { accountRouter } from "./routes/accounts.routes.js";
 import { actionRouter } from "./routes/actions.routes.js";
-import { addUser } from "./sockets/friends.socket.js";
+import { friendsRouter } from "./routes/friends.routes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -38,11 +38,11 @@ app.use(cookie());
 app.use(bodyParser.json());
 app.use(accountRouter);
 app.use(actionRouter);
+app.use(friendsRouter);
 
 io.on("connection", (socket) => {
   connected(socket, io, users, sockets);
   disconnected(socket, io, users, sockets);
-  addUser(socket, io);
 
   globalMessage(socket, io);
   privateMessage(socket, io);
