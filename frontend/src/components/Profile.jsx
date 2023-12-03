@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { URL } from "../Home/Home";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +21,7 @@ export const Profile = ({ id }) => {
           `${URL}/api/searchProfile?id=${encodeURIComponent(id)}`
         );
         const response = await res.json();
-        if (res.status != 200) {
+        if (res.status !== 200) {
           toast.error(response.message, {
             position: toast.POSITION.BOTTOM_CENTER,
           });
@@ -60,7 +60,7 @@ export const Profile = ({ id }) => {
     <div className="p-4">
       {loading ? (
         <img src={loadingGif} alt="loading" className="w-10 h-10 m-auto" />
-      ) : (
+      ) : userId !== 0 ? (
         <div>
           <section className="flex items-center mb-7">
             <FontAwesomeIcon
@@ -69,7 +69,7 @@ export const Profile = ({ id }) => {
             ></FontAwesomeIcon>
             <h2 className="text-4xl">{username}</h2>
             <div className="ml-5">
-              {socket.id_user != userId && userId != 0 ? (
+              {socket.id_user !== userId ? (
                 <button onClick={() => addUser(userId)}>
                   <FontAwesomeIcon
                     icon={faUserPlus}
@@ -90,6 +90,8 @@ export const Profile = ({ id }) => {
             <p className="italic">No such description.</p>
           </section>
         </div>
+      ) : (
+        ""
       )}
       <ToastContainer></ToastContainer>
     </div>
