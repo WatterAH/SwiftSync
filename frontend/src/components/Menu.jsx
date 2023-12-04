@@ -1,5 +1,8 @@
 import React from "react";
 import { Dropdown } from "./Dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faRocketchat } from "@fortawesome/free-brands-svg-icons";
 
 export function Menu({ currentTab, setCurrentTab, setUserId }) {
   return (
@@ -10,6 +13,10 @@ export function Menu({ currentTab, setCurrentTab, setUserId }) {
         } `}
         onClick={() => setCurrentTab("global")}
       >
+        <FontAwesomeIcon
+          icon={faGlobe}
+          className="hidden sm:mr-3 sm:inline"
+        ></FontAwesomeIcon>
         Global
       </button>
       <button
@@ -18,6 +25,10 @@ export function Menu({ currentTab, setCurrentTab, setUserId }) {
         } `}
         onClick={() => setCurrentTab("chats")}
       >
+        <FontAwesomeIcon
+          icon={faRocketchat}
+          className="hidden sm:mr-3 sm:inline"
+        ></FontAwesomeIcon>
         My chats
       </button>
       <button
@@ -26,6 +37,10 @@ export function Menu({ currentTab, setCurrentTab, setUserId }) {
         } `}
         onClick={() => setCurrentTab("notifications")}
       >
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="hidden sm:mr-3 sm:inline"
+        ></FontAwesomeIcon>
         Notifications
       </button>
       <Dropdown setCurrentTab={setCurrentTab} setUserId={setUserId}></Dropdown>

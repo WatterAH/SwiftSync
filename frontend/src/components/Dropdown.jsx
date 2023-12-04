@@ -1,7 +1,12 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAddressCard,
+  faGear,
+  faRightFromBracket,
+  faUserGroup,
+} from "@fortawesome/free-solid-svg-icons";
 import { socket } from "../Home/Login";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../Home/Home";
@@ -65,6 +70,10 @@ export function Dropdown({ setCurrentTab, setUserId }) {
                     "block px-4 py-2 text-sm"
                   )}
                 >
+                  <FontAwesomeIcon
+                    icon={faAddressCard}
+                    className="mr-3"
+                  ></FontAwesomeIcon>
                   My profile
                 </a>
               )}
@@ -78,6 +87,10 @@ export function Dropdown({ setCurrentTab, setUserId }) {
                     "block px-4 py-2 text-sm"
                   )}
                 >
+                  <FontAwesomeIcon
+                    icon={faUserGroup}
+                    className="mr-3"
+                  ></FontAwesomeIcon>
                   My SwiftFriends
                 </a>
               )}
@@ -94,6 +107,10 @@ export function Dropdown({ setCurrentTab, setUserId }) {
                     "block px-4 py-2 text-sm"
                   )}
                 >
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="mr-3"
+                  ></FontAwesomeIcon>
                   Logout
                 </a>
               )}

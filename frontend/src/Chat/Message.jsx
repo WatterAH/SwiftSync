@@ -1,3 +1,6 @@
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export const Message = ({ setMessage, message, handleTyping }) => {
   return (
     <div>
@@ -13,6 +16,10 @@ export const Message = ({ setMessage, message, handleTyping }) => {
         <div>
           <button className="rounded-md bg-amber-400 p-3 w-16 md:w-32">
             Send
+            <FontAwesomeIcon
+              className="ml-3"
+              icon={faPaperPlane}
+            ></FontAwesomeIcon>
           </button>
         </div>
       </div>
