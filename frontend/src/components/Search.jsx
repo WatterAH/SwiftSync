@@ -60,7 +60,6 @@ export const Search = ({ setCurrentTab, setUserId }) => {
   };
 
   profile = (id) => {
-    console.log(id);
     setCurrentTab("profile");
     setUserId(id);
     setDisplayResults(false);
