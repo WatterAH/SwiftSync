@@ -13,9 +13,10 @@ import {
 } from "./sockets/privado.socket.js";
 import { stoppedTyping, typing } from "./sockets/privateEvents.socket.js";
 import { tryingConnection } from "./sockets/errors.socket.js";
-import { accountRouter } from "./routes/accounts.routes.js";
-import { actionRouter } from "./routes/actions.routes.js";
-import { friendsRouter } from "./routes/friends.routes.js";
+import { accountRouter } from "./routes/accounts.route.js";
+import { actionRouter } from "./routes/actions.route.js";
+import { friendsRouter } from "./routes/friends.route.js";
+import { profileRouter } from "./routes/profile.route.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 app.use(accountRouter);
 app.use(actionRouter);
 app.use(friendsRouter);
+app.use(profileRouter);
 
 io.on("connection", (socket) => {
   connected(socket, io, users, sockets);

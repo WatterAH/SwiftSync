@@ -14,13 +14,14 @@ export function Login({ setCurrentForm }) {
   const nav = useNavigate();
 
   const auth = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const data = {
-      username: userName.trim(),
-      password: password.trim(),
-    };
     try {
+      e.preventDefault();
+      setLoading(true);
+      const data = {
+        username: userName.trim(),
+        password: password.trim(),
+      };
+
       const res = await fetch(`${URL}/api/auth`, {
         method: "POST",
         headers: {
@@ -29,28 +30,26 @@ export function Login({ setCurrentForm }) {
         credentials: "include",
         body: JSON.stringify(data),
       });
-      const response = await res.json();
-      if (res.status != 200) {
-        toast.error(response.message, {
+      const resData = await res.json();
+      if (!res.ok) {
+        toast.error(resData.message, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
-      } else if (res.status == 200) {
+      } else {
         socket = io(URL, {
           transports: ["websocket"],
         });
-        const miydata = {
-          name: response.username,
-          selectedIcon: response.icon,
-          db_id: response.id,
-        };
-        socket.id_user = response.id;
-        socket.username = response.username;
-        socket.icon = response.icon;
-        socket.emit("userConnected", miydata);
+        socket.id_user = resData.id;
+        socket.username = resData.username;
+        socket.icon = resData.icon;
+
+        socket.emit("userConnected", resData);
         nav("/app");
       }
     } catch (error) {
-      throw new Error(error);
+      toast.error("Client Error", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
     } finally {
       setLoading(false);
     }

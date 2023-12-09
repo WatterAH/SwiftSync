@@ -1,12 +1,15 @@
 import React from "react";
-import { Dropdown } from "./Dropdown";
+import { Dropdown } from "../components/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faGlobe } from "@fortawesome/free-solid-svg-icons";
-import { faRocketchat } from "@fortawesome/free-brands-svg-icons";
+import {
+  faCheck,
+  faComments,
+  faGlobe,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function Menu({ currentTab, setCurrentTab, setUserId }) {
   return (
-    <div className="flex items-center justify-between px-2 text-sm sm:px-4 md:px-8 py-6 border-b border-t border-gray-600">
+    <div className="flex items-center justify-between text-xs sm:text-sm px-3 sm:px-4 md:px-8 py-6 border-b border-t border-gray-600">
       <button
         className={`${
           currentTab == "global" ? "underline underline-offset-8" : ""
@@ -15,7 +18,7 @@ export function Menu({ currentTab, setCurrentTab, setUserId }) {
       >
         <FontAwesomeIcon
           icon={faGlobe}
-          className="hidden sm:mr-3 sm:inline"
+          className="mr-3 text-amber-200"
         ></FontAwesomeIcon>
         Global
       </button>
@@ -26,10 +29,10 @@ export function Menu({ currentTab, setCurrentTab, setUserId }) {
         onClick={() => setCurrentTab("chats")}
       >
         <FontAwesomeIcon
-          icon={faRocketchat}
-          className="hidden sm:mr-3 sm:inline"
+          icon={faComments}
+          className="mr-3 text-amber-200"
         ></FontAwesomeIcon>
-        My chats
+        Chats
       </button>
       <button
         className={`${
@@ -39,7 +42,7 @@ export function Menu({ currentTab, setCurrentTab, setUserId }) {
       >
         <FontAwesomeIcon
           icon={faCheck}
-          className="hidden sm:mr-3 sm:inline"
+          className="mr-3 text-amber-200"
         ></FontAwesomeIcon>
         Notifications
       </button>

@@ -1,9 +1,13 @@
 import { socket } from "../Home/Login.jsx";
 import { useState, useEffect } from "react";
-import { GlobalList } from "../components/GlobalList.jsx";
-import { Menu } from "../components/Menu.jsx";
+import { GlobalList } from "../containers/GlobalList.jsx";
+import { Menu } from "../containers/Menu.jsx";
 import { Search } from "../components/Search.jsx";
-import { Profile } from "../components/Profile.jsx";
+import { Profile } from "../containers/Profile.jsx";
+import { Notifications } from "../containers/Notifications.jsx";
+import { SwiftFriends } from "../containers/SwiftFriends.jsx";
+
+export let displayFriends;
 
 export const Actions = ({ visible }) => {
   const [users, setUsers] = useState([]);
@@ -17,12 +21,18 @@ export const Actions = ({ visible }) => {
       case "chats":
         return <p className="p-4">Coming soon</p>;
       case "notifications":
-        return <p className="p-4">Coming soon</p>;
+        return <Notifications></Notifications>;
       case "profile":
         return <Profile id={userId}></Profile>;
+      case "friends":
+        return <SwiftFriends></SwiftFriends>;
       default:
         break;
     }
+  };
+
+  displayFriends = () => {
+    setCurrentTab("friends");
   };
 
   useEffect(() => {

@@ -8,47 +8,47 @@ import {
   faStar,
   faHeadphones,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { URL } from "./Home";
 
 export function Register({ setCurrentForm }) {
-  const [newName, setNewName] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [loading, setLoading] = useState(false);
-  const nav = useNavigate();
 
   const reg = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const data = {
-      username: newName.trim(),
-      password: newPassword.trim(),
-      selectedIcon,
-    };
-
     try {
+      e.preventDefault();
+      setLoading(true);
+
+      const body = {
+        username: username.trim(),
+        password: password.trim(),
+        selectedIcon,
+      };
       const res = await fetch(`${URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
       });
-      const message = await res.json();
-      if (res.status != 200) {
-        toast.error(message.message, {
+      const resData = await res.json();
+
+      if (!res.ok) {
+        toast.error(resData.message, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       } else {
-        toast.success(message.message, {
+        toast.success(resData.message, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
+        setLoading(false);
         setCurrentForm("auth");
       }
-    } catch (err) {
-      toast.error(err, {
+    } catch (error) {
+      toast.error("Client Error", {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     } finally {
@@ -68,7 +68,7 @@ export function Register({ setCurrentForm }) {
               id="username"
               className="rounded-md p-3 mb-3 w-full shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
               placeholder="@Username"
-              onChange={(e) => setNewName(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
         </div>
@@ -82,7 +82,7 @@ export function Register({ setCurrentForm }) {
               type="password"
               placeholder="my$Password123"
               className="rounded-md p-3 mb-3 w-full border-0 shadow-sm focus-visible:outline-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
         </div>

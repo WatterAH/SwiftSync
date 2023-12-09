@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { URL } from "../Home/Home";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getFa } from "./GlobalList";
+import { getFa } from "../containers/GlobalList";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export let profile;
@@ -41,19 +41,19 @@ export const Search = ({ setCurrentTab, setUserId }) => {
       const res = await fetch(
         `${URL}/api/searchFriend?username=${encodeURIComponent(username)}`
       );
-      const response = await res.json();
-      if (res.status != 200) {
-        toast.error(response.message, {
+      const resData = await res.json();
+      if (!res.ok) {
+        toast.error(resData.message, {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         setDisplayResults(false);
       } else {
         setDisplayResults(true);
-        setUsersFound(response);
+        setUsersFound(resData);
       }
     } catch (error) {
       setDisplayResults(false);
-      toast.error(response.message, {
+      toast.error("Client Error", {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }

@@ -10,12 +10,14 @@ import {
 import { socket } from "../Home/Login";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../Home/Home";
+import { profile } from "./Search";
+import { displayFriends } from "../Chat/Actions";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function Dropdown({ setCurrentTab, setUserId }) {
+export function Dropdown() {
   const nav = useNavigate();
 
   const logout = async () => {
@@ -27,25 +29,25 @@ export function Dropdown({ setCurrentTab, setUserId }) {
         },
         credentials: "include",
       });
-      socket.disconnect();
       if (res.status == 200) {
+        socket.disconnect();
         nav("/");
       }
     } catch (error) {
+      socket.disconnect();
+      nav("/");
       throw new Error(error);
     }
-  };
-
-  const profile = () => {
-    setCurrentTab("profile");
-    setUserId(socket.id_user);
   };
 
   return (
     <Menu as="div" className="relative text-left inline-block">
       <div>
         <Menu.Button className="inline-flex w-full justify-center">
-          <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
+          <FontAwesomeIcon
+            icon={faGear}
+            className="text-amber-200"
+          ></FontAwesomeIcon>
         </Menu.Button>
       </div>
 
@@ -63,11 +65,10 @@ export function Dropdown({ setCurrentTab, setUserId }) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
-                  onClick={profile}
+                  onClick={() => profile(socket.id_user)}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm hover:cursor-pointer"
                   )}
                 >
                   <FontAwesomeIcon
@@ -81,11 +82,11 @@ export function Dropdown({ setCurrentTab, setUserId }) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm hover:cursor-pointer"
                   )}
+                  onClick={displayFriends}
                 >
                   <FontAwesomeIcon
                     icon={faUserGroup}
@@ -100,11 +101,10 @@ export function Dropdown({ setCurrentTab, setUserId }) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
                   onClick={logout}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm hover:cursor-pointer"
                   )}
                 >
                   <FontAwesomeIcon

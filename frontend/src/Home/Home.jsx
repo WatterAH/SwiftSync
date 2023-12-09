@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Login } from "./Login";
 import { Register } from "./Register";
 
-export const URL = "//swiftsync.fly.dev";
+export const URL = "http://localhost:3000";
 
 export function Home() {
   const [currentForm, setCurrentForm] = useState("auth");

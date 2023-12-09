@@ -3,9 +3,10 @@ export const globalMessage = (socket, io) => {
     try {
       return io.emit("message", {
         id: socket.id,
-        body,
+        body: body.message,
         from: socket.username,
         icon: socket.icon,
+        db_id: body.id_user,
       });
     } catch (error) {
       return socket.emit("reload");

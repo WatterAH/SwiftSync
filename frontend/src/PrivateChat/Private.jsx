@@ -1,4 +1,4 @@
-import { Message } from "../Chat/Message.jsx";
+import { InputMessage } from "../components/InputMessage.jsx";
 import { MessageList } from "../Chat/MessageList.jsx";
 import { useState, useEffect } from "react";
 import { socket } from "../Home/Login.jsx";

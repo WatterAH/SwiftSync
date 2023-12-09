@@ -2,16 +2,18 @@ import { socket } from "../Home/Login.jsx";
 import { useState, useEffect } from "react";
 import { MessageList } from "./MessageList.jsx";
 import { Actions } from "./Actions.jsx";
-import { Message } from "./Message.jsx";
+import { InputMessage } from "../components/InputMessage.jsx";
 import { useNavigate } from "react-router-dom";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionsButton } from "../components/ActionsButton.jsx";
+
+export let navigation;
 
 export function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [visible, setVisible] = useState(true);
-  const [notify, setNotify] = useState(false);
   const nav = useNavigate();
 
   //Enviar mensaje
@@ -20,7 +22,11 @@ export function App() {
     if (message.length == 0) {
       return;
     }
-    socket.emit("message", message.trim());
+    const data = {
+      message: message.trim(),
+      id_user: socket.id_user,
+    };
+    socket.emit("message", data);
     setMessage("");
   };
 
@@ -70,7 +76,9 @@ export function App() {
     };
   }, []);
 
-  //
+  navigation = () => {
+    setVisible(!visible);
+  };
 
   return (
     <div className="h-screen relative flex bg-zinc-800 text-white">
@@ -81,33 +89,9 @@ export function App() {
           visible ? "z-10" : "z-0"
         } absolute h-screen`}
       >
-        <div className="flex text-center gap-3">
-          <div className="w-12 h-12 lg:hidden ml-auto">
-            <div
-              className={`w-4 h-4 right-2 top-2 absolute ${
-                notify ? "visible" : "hidden"
-              } ml-auto rounded-full bg-red-500`}
-            ></div>
-            <a
-              className="block lg:hidden text-xl cursor-pointer"
-              onClick={() => {
-                setVisible(!visible);
-                setNotify(false);
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faUsers}
-                className="w-full h-full hover:text-black"
-              />
-            </a>
-          </div>
-        </div>
-        <MessageList messages={messages} setMessages={setMessages} />
-        <Message
-          setMessage={setMessage}
-          message={message}
-          handleTyping={() => null}
-        />
+        <ActionsButton></ActionsButton>
+        <MessageList messages={messages} />
+        <InputMessage setMessage={setMessage} message={message} />
       </form>
     </div>
   );
