@@ -15,7 +15,7 @@ Ampliamos las opciones de interacción social. Envía y recibe solicitudes de am
 Introducimos un nuevo espacio dedicado exclusivamente a las notificaciones. Ahora, todas las interacciones sociales, solicitudes de amistad y otros eventos importantes estarán organizados de manera clara y accesible en el nuevo apartado de notificaciones.
 
 ### SwiftFriends: Gestiona tus Amistades
-Descubre el nuevo apartado "SwiftFriends", donde puedes ver y gestionar todas tus amistades de manera centralizada. Accede fácilmente a la lista de amigos, revisa solicitudes pendientes y mantén un control total sobre tu red social.
+Descubre el nuevo apartado "SwiftFriends", donde puedes ver y gestionar todas tus amistades de manera centralizada. Accede fácilmente a la lista de amigos y mantén un control total sobre tu red social.
 
 ### Corrección de Bugs y Errores
 Hemos trabajado arduamente para solucionar diversos bugs y errores, asegurando una experiencia más fluida y sin interrupciones.
