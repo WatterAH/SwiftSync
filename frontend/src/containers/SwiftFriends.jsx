@@ -45,7 +45,7 @@ export const SwiftFriends = () => {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       {loading ? (
         <img src={loadingGif} alt="loading" className="w-10 h-10 m-auto" />
       ) : (
