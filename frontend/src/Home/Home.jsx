@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import "react-toastify/dist/ReactToastify.css";
-import phoenix from "../assets/phoenix.svg";
 
 export const URL = "//swiftsync.fly.dev";
 
@@ -22,7 +21,6 @@ export function Home() {
 
   return (
     <div className="flex flex-1 min-h-full flex-col justify-center px-6 py-12 h-screen bg-zinc-800">
-      <img src={phoenix} alt="logo" className="h-15" />
       <div className="flex items-center justify-center sm:mx-auto sm:w-full sm:max-w-sm">
         <h1 className="text-3xl font-bold text-white transition-opacity">
           {currentForm == "reg"
